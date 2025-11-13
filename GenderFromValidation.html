@@ -1,0 +1,56 @@
+
+<html>
+<head>
+    <title>Gender Validation</title>
+</head>
+<body>
+    <fieldset>
+        <legend>Gender</legend>
+        <input type="radio" id="male" name="gender" value="Male" onchange="validateGender()">
+        <label for="male">Male</label>
+        
+        <input type="radio" id="female" name="gender" value="Female" onchange="validateGender()">
+        <label for="female">Female</label>
+        
+        <input type="radio" id="other" name="gender" value="Other" onchange="validateGender()">
+        <label for="other">Other</label>
+    </fieldset>
+    <br>
+    <button onclick="submitGender()">Submit</button>
+    <p id="genderError"></p>
+
+    <script>
+        function validateGender() {
+            let genderError = document.getElementById('genderError');
+            let male = document.getElementById('male');
+            let female = document.getElementById('female');
+            let other = document.getElementById('other');
+            
+            if (!male.checked && !female.checked && !other.checked) {
+                genderError.innerHTML = 'Error: At least one of them has to be selected';
+                genderError.style.color = 'red';
+                return false;
+            }
+            
+            genderError.innerHTML = '';
+            return true;
+        }
+
+        function submitGender() {
+            let male = document.getElementById('male');
+            let female = document.getElementById('female');
+            let other = document.getElementById('other');
+            
+            if (!male.checked && !female.checked && !other.checked) {
+                let genderError = document.getElementById('genderError');
+                genderError.innerHTML = 'Error: At least one of them has to be selected';
+                genderError.style.color = 'red';
+                return false;
+            } else {
+                alert('Success: Gender selected!');
+                return true;
+            }
+        }
+    </script>
+</body>
+</html>
