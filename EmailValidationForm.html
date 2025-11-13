@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Email Validation</title>
+</head>
+<body>
+    <h2>Email</h2>
+    <input type="text" id="emailInput" onblur="validateEmail()">
+    <span title="hint: sample@example.com">i</span>
+    <p id="emailError"></p>
+    <button onclick="submitEmail()">Submit</button>
+
+    <script>
+        function validateEmail() {
+            let emailInput = document.getElementById('emailInput').value;
+            let emailError = document.getElementById('emailError');
+            
+           
+            if (emailInput =="") {
+                emailError.innerHTML = 'Error: Email cannot be empty';
+                emailError.style.color = 'red';
+                return false;
+            }
+            
+            let atIndex = emailInput.indexOf('@');
+            if (atIndex === -1) {
+                emailError.innerHTML = 'Error: Email must contain @ symbol';
+                emailError.style.color = 'red';
+                return false;
+            }
+            
+            
+            if (atIndex === 0) {
+                emailError.innerHTML = 'Error: Email must have characters before @';
+                emailError.style.color = 'red';
+                return false;
+            }
+            
+            
+            if (atIndex === emailInput.length - 1) {
+                emailError.innerHTML = 'Error: Email must have domain after @';
+                emailError.style.color = 'red';
+                return false;
+            }
+            
+            
+            let lastAtIndex = emailInput.lastIndexOf('@');
+            if (atIndex !== lastAtIndex) {
+                emailError.innerHTML = 'Error: Email must contain only one @ symbol';
+                emailError.style.color = 'red';
+                return false;
+            }
+            
+            
+            let domain = emailInput.substring(atIndex + 1);
+            
+            
+            let dotIndex = domain.indexOf('.');
+            if (dotIndex === -1) {
+                emailError.innerHTML = 'Error: Domain must contain a dot (.)';
+                emailError.style.color = 'red';
+                return false;
+            }
+            
+            
+            if (dotIndex === 0) {
+                emailError.innerHTML = 'Error: Domain cannot start with a dot';
+                emailError.style.color = 'red';
+                return false;
+            }
+            
+            
+            if (dotIndex === domain.length - 1) {
+                emailError.innerHTML = 'Error: Domain must have extension after dot';
+                emailError.style.color = 'red';
+                return false;
+            }
+            
+            
+            for (let i = 0; i < emailInput.length; i++) {
+                let char = emailInput.charAt(i);
+                if (char === ' ') {
+                    emailError.innerHTML = 'Error: Email cannot contain spaces';
+                    emailError.style.color = 'red';
+                    return false;
+                }
+            }
+            
+            emailError.innerHTML = '';
+            return true;
+        }
+
+        function submitEmail() {
+            if (validateEmail()) {
+                alert('Success: Valid email address!');
+            }
+        }
+    </script>
+</body>
+</html>
