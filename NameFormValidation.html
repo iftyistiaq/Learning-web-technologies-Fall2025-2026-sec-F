@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Name Validation</title>
+</head>
+<body>
+    <h2>Name</h2>
+    <input type="text" id="nameInput" onblur="validateName()">
+    <p id="nameError"></p>
+    <button onclick="submitName()">Submit</button>
+
+    <script>
+        function validateName() {
+            let nameInput = document.getElementById('nameInput').value;
+            let nameError = document.getElementById('nameError');
+            
+          
+            if (nameInput == "") {
+                nameError.innerHTML = 'Error: Name cannot be empty';
+                nameError.style.color = 'red';
+                return false;
+            }
+            
+            
+            let firstChar = nameInput.charAt(0);
+            if (!isLetter(firstChar)) {
+                nameError.innerHTML = 'Error: Name must start with a letter';
+                nameError.style.color = 'red';
+                return false;
+            }
+            
+
+            for (let i = 0; i < nameInput.length; i++) {
+                let char = nameInput.charAt(i);
+                if (!isLetter(char) && char !== '.' && char !== '-' && char !== ' ') {
+                    nameError.innerHTML = 'Error: Name can only contain letters, dots, dashes, and spaces';
+                    nameError.style.color = 'red';
+                    return false;
+                }
+            }
+            
+            
+            let trimmedName = nameInput.trim();
+            let wordCount = 0;
+            let inWord = false;
+            
+            for (let i = 0; i < trimmedName.length; i++) {
+                if (trimmedName.charAt(i) === ' ') {
+                    if (inWord) {
+                        inWord = false;
+                    }
+                } else {
+                    if (!inWord) {
+                        wordCount++;
+                        inWord = true;
+                    }
+                }
+            }
+            
+            if (wordCount < 2) {
+                nameError.innerHTML = 'Error: Name must contain at least two words';
+                nameError.style.color = 'red';
+                return false;
+            }
+            
+            nameError.innerHTML = '';
+            return true;
+        }
+        
+        function isLetter(char) {
+            let code = char.charCodeAt(0);
+            return (code >= 65 && code <= 90) || (code >= 97 && code <= 122);
+        }
+
+        function submitName() {
+            if (validateName()) {
+                alert('Success: Valid name!');
+            }
+        }
+    </script>
+</body>
+</html>
