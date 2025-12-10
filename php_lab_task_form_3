@@ -1,0 +1,11 @@
+<html>
+    <body>
+        <fieldset>
+            <legend>DATE OF BIRTH</legend>
+              <input type="text" name="dob "/><hr/>    
+              <input type="submit" value="Submit"/>     
+
+
+        </fieldset>
+    </body>
+</html>
